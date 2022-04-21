@@ -10,10 +10,12 @@ class BlindConstructorPage extends StatefulWidget {
 }
 
 class _BlindConstructorPageState extends State<BlindConstructorPage> {
-  int _divider = Poker.blindGrowDivider;
-  int _power = Poker.blindGrowPower;
-  double _minLittleBlindPerc = Poker.minLittleBlindPerc;
-  int _mChipVal = Poker.minChipValue;
+  final poker = Poker.instance;
+
+  int _divider = Poker.instance.blindGrowDivider;
+  int _power = Poker.instance.blindGrowPower;
+  double _minLittleBlindPercent = Poker.instance.minLittleBlindPerc;
+  int _mChipVal = Poker.instance.minChipValue;
 
   int _currentStartBigBlindValue = 0;
   int _currentMiddleBigBlindValue = 0;
@@ -53,17 +55,17 @@ class _BlindConstructorPageState extends State<BlindConstructorPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'First round: $_currentStartBigBlindValue (stack eff. - ${(Poker.allCash / Poker.playersCount / _currentStartBigBlindValue).floor()} bb)',
+                    'First round: $_currentStartBigBlindValue (stack eff. - ${(poker.allCash / poker.playersCount / _currentStartBigBlindValue).floor()} bb)',
                     style: const TextStyle(color: Colors.black, fontSize: 18),
                     textAlign: TextAlign.left,
                   ),
                   Text(
-                    'Middle game: $_currentMiddleBigBlindValue (stack eff. - ${(Poker.allCash / Poker.playersCount / _currentMiddleBigBlindValue).floor()} bb)',
+                    'Middle game: $_currentMiddleBigBlindValue (stack eff. - ${(poker.allCash / poker.playersCount / _currentMiddleBigBlindValue).floor()} bb)',
                     style: const TextStyle(color: Colors.black, fontSize: 18),
                     textAlign: TextAlign.left,
                   ),
                   Text(
-                    'Last round: $_currentEndBigBlindValue (stack eff. - ${(Poker.allCash / Poker.playersCount / _currentEndBigBlindValue).floor()} bb)',
+                    'Last round: $_currentEndBigBlindValue (stack eff. - ${(poker.allCash / poker.playersCount / _currentEndBigBlindValue).floor()} bb)',
                     style: const TextStyle(color: Colors.black, fontSize: 18),
                     textAlign: TextAlign.left,
                   ),
@@ -74,18 +76,17 @@ class _BlindConstructorPageState extends State<BlindConstructorPage> {
           const Divider(),
           FittedBox(
             child: Text(
-              'Minimum LITTLE BLIND value - $_minLittleBlindPerc%',
+              'Minimum LITTLE BLIND value - $_minLittleBlindPercent%',
               style: const TextStyle(color: Colors.orange, fontSize: 20),
               textAlign: TextAlign.center,
             ),
           ),
           Slider(
-            value: _minLittleBlindPerc,
-            min: 0,
+            value: _minLittleBlindPercent,
             max: 10,
             divisions: 20,
             onChanged: (value) {
-              _minLittleBlindPerc = value;
+              _minLittleBlindPercent = value;
               setState(() {});
             },
           ),
@@ -181,10 +182,10 @@ class _BlindConstructorPageState extends State<BlindConstructorPage> {
             padding: const EdgeInsets.symmetric(horizontal: 100),
             child: ElevatedButton(
               onPressed: () {
-                Poker.blindGrowPower = _power;
-                Poker.blindGrowDivider = _divider;
-                Poker.minLittleBlindPerc = _minLittleBlindPerc;
-                Poker.minChipValue = _mChipVal;
+                poker.blindGrowPower = _power;
+                poker.blindGrowDivider = _divider;
+                poker.minLittleBlindPerc = _minLittleBlindPercent;
+                poker.minChipValue = _mChipVal;
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Options saved'),
@@ -213,10 +214,10 @@ class _BlindConstructorPageState extends State<BlindConstructorPage> {
         timeK *= tmpTimeK;
       }
 
-      final chipsOfOnePlayer = (Poker.allCash / Poker.playersCount).round();
+      final chipsOfOnePlayer = (poker.allCash / poker.playersCount).round();
       var y = (chipsOfOnePlayer / _divider * timeK) / chipsOfOnePlayer * 100;
 
-      if (y < _minLittleBlindPerc) y = _minLittleBlindPerc;
+      if (y < _minLittleBlindPercent) y = _minLittleBlindPercent;
 
       //малый блайнд не может быть меньше 1 фишки
       final minMinLBPerc = 1 / chipsOfOnePlayer * 100;

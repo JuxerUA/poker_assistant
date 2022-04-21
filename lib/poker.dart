@@ -1,32 +1,36 @@
 import 'package:flutter/material.dart';
 
 class Poker {
-  Poker() {
-    startGameTime = DateTime.now();
-    valueColor = Colors.grey;
-  }
+  Poker._();
 
-  static int allGameTimeSec = 3600;
-  static int timeLeftSec = 3600;
-  static int allCash = 1000;
-  static int playersCount = 2;
-  static int viewMode = 3;
-  static int minChipValue = 1;
-  static int minLittleBlind = 5;
-  static double minLittleBlindPerc = 1.5;
-  static int currentLittleBlind = 0;
-  static DateTime startGameTime;
-  static DateTime startACurrentGameTime;
-  static Color valueColor;
-  static int gameCount = 0;
-  static int theLongestGameSec = 0;
-  static int theShortestGameSec = 999999;
-  static bool needResetLittleBlind = false;
+  static final instance = Poker._();
 
-  static int blindGrowDivider = 6;
-  static int blindGrowPower = 3;
+  // Poker() {
+  //   startGameTime = DateTime.now();
+  //   valueColor = Colors.grey;
+  // }
 
-  static void startNextGame({bool restart = false}) {
+  int allGameTimeSec = 3600;
+  int timeLeftSec = 3600;
+  int allCash = 1000;
+  int playersCount = 2;
+  int viewMode = 3;
+  int minChipValue = 1;
+  int minLittleBlind = 5;
+  double minLittleBlindPerc = 1.5;
+  int currentLittleBlind = 0;
+  DateTime startGameTime;
+  DateTime startACurrentGameTime;
+  Color valueColor;
+  int gameCount = 0;
+  int theLongestGameSec = 0;
+  int theShortestGameSec = 999999;
+  bool needResetLittleBlind = false;
+
+  int blindGrowDivider = 6;
+  int blindGrowPower = 3;
+
+  void startNextGame({bool restart = false}) {
     if (restart) {
       --gameCount;
     }
@@ -108,7 +112,7 @@ class Poker {
   }
 
 //todo
-  static int littleBlindCalculator(
+  int littleBlindCalculator(
     double timePerc,
     double averagePlayerCash,
     double minPerc,
@@ -134,7 +138,7 @@ class Poker {
     }
   }
 
-  static bool changeTimeLeft(int newTimeLeftMin) {
+  bool changeTimeLeft(int newTimeLeftMin) {
     final dTimeSec = newTimeLeftMin * 60 - timeLeftSec;
     allGameTimeSec += dTimeSec;
     timeLeftSec = newTimeLeftMin * 60;
@@ -142,7 +146,7 @@ class Poker {
     return dTimeSec >= 0;
   }
 
-  static void stopTheGame() {
+  void stopTheGame() {
     allGameTimeSec = 3600;
     timeLeftSec = 3600;
     currentLittleBlind = 0;
@@ -156,14 +160,14 @@ class Poker {
     theShortestGameSec = 999999;
   }
 
-  static int getGameTimeMinutes() =>
+  int getGameTimeMinutes() =>
       gameCount > 0 ? DateTime.now().difference(startGameTime).inMinutes : 0;
 
-  static int getGameTimeSeconds() => gameCount > 0
+  int getGameTimeSeconds() => gameCount > 0
       ? DateTime.now().difference(startGameTime).inSeconds % 60
       : 0;
 
-  static int getAverageGameTimeSeconds() => gameCount > 0
+  int getAverageGameTimeSeconds() => gameCount > 0
       ? (DateTime.now().difference(startGameTime).inSeconds / gameCount).floor()
       : 0;
 }

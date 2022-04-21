@@ -1,6 +1,5 @@
 # Docs: https://dart.dev/guides/language/analysis-options
 # All available rules: https://dart-lang.github.io/linter/lints/
-include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
@@ -208,11 +207,9 @@ analyzer:
 dart_code_metrics:
   anti-patterns:
     - long-method
-    - long-parameter-list
   metrics:
     cyclomatic-complexity: 20
     maximum-nesting-level: 5
-    number-of-parameters: 4
     # todo should be 50 later
     source-lines-of-code: 160
   rules:
@@ -267,9 +264,9 @@ dart_code_metrics:
     - avoid-border-all
     - avoid-collection-methods-with-unrelated-types
     - avoid-global-state
-#    - avoid-dynamic
-#    - avoid-ignoring-return-values
-#    - avoid-late-keyword
+    #    - avoid-dynamic
+    #    - avoid-ignoring-return-values
+    #    - avoid-late-keyword
     - member-ordering-extended:
         alphabetize: false
         order:

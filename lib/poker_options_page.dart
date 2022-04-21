@@ -11,14 +11,16 @@ class PokerOptionsPage extends StatefulWidget {
 }
 
 class _PokerOptionsPageState extends State<PokerOptionsPage> {
+  final poker = Poker.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Poker.gameCount == 0
+        title: poker.gameCount == 0
             ? const Text('Game not started')
-            : Text('Game time: ${Poker.getGameTimeMinutes()} m'),
-        elevation: 1.0,
+            : Text('Game time: ${poker.getGameTimeMinutes()} m'),
+        elevation: 1,
       ),
       backgroundColor: Colors.grey[800],
       body: Column(
@@ -39,7 +41,7 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Rounds count: ${Poker.gameCount}',
+                          'Rounds count: ${poker.gameCount}',
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -47,7 +49,7 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                           textAlign: TextAlign.left,
                         ),
                         Text(
-                          'Game time: ${Poker.getGameTimeMinutes()} m ${Poker.getGameTimeSeconds()} s',
+                          'Game time: ${poker.getGameTimeMinutes()} m ${poker.getGameTimeSeconds()} s',
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -55,7 +57,7 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                           textAlign: TextAlign.left,
                         ),
                         Text(
-                          'Average round time: ${(Poker.getAverageGameTimeSeconds() / 60).floor()} m ${Poker.getAverageGameTimeSeconds() % 60} s',
+                          'Average round time: ${(poker.getAverageGameTimeSeconds() / 60).floor()} m ${poker.getAverageGameTimeSeconds() % 60} s',
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -63,7 +65,7 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                           textAlign: TextAlign.left,
                         ),
                         Text(
-                          'The longest round: ${(Poker.theLongestGameSec / 60).floor()} m ${Poker.theLongestGameSec % 60} s',
+                          'The longest round: ${(poker.theLongestGameSec / 60).floor()} m ${poker.theLongestGameSec % 60} s',
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -71,9 +73,9 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                           textAlign: TextAlign.left,
                         ),
                         Text(
-                          Poker.theShortestGameSec == 999999
+                          poker.theShortestGameSec == 999999
                               ? 'The shortest round: 0 m 0 s'
-                              : 'The shortest round: ${(Poker.theShortestGameSec / 60).floor()} m ${Poker.theShortestGameSec % 60} s',
+                              : 'The shortest round: ${(poker.theShortestGameSec / 60).floor()} m ${poker.theShortestGameSec % 60} s',
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -91,7 +93,7 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                     keyboardType: TextInputType.number,
                     style: Theme.of(context).textTheme.headline5,
                     controller: TextEditingController(
-                      text: '${(Poker.timeLeftSec / 60).floor()}',
+                      text: '${(poker.timeLeftSec / 60).floor()}',
                     ),
                     decoration: const InputDecoration(
                       icon: Icon(Icons.timer),
@@ -101,7 +103,7 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            'Time ${Poker.changeTimeLeft(int.tryParse(value)) ? 'added' : 'removed'}',
+                            'Time ${poker.changeTimeLeft(int.tryParse(value)) ? 'added' : 'removed'}',
                           ),
                           duration: const Duration(seconds: 1),
                         ),
@@ -115,15 +117,15 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                   child: TextField(
                     keyboardType: TextInputType.number,
                     style: Theme.of(context).textTheme.headline5,
-                    controller: TextEditingController(text: '${Poker.allCash}'),
+                    controller: TextEditingController(text: '${poker.allCash}'),
                     decoration: const InputDecoration(
                       icon: Icon(Icons.attach_money),
                       labelText: 'Total cash of the game',
                     ),
                     onSubmitted: (value) {
-                      int d = Poker.allCash;
-                      Poker.allCash = int.tryParse(value);
-                      d = Poker.allCash - d;
+                      int d = poker.allCash;
+                      poker.allCash = int.tryParse(value);
+                      d = poker.allCash - d;
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content:
@@ -136,18 +138,18 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                 ),
                 const Divider(),
                 Text(
-                  'Players count - ${Poker.playersCount}',
+                  'Players count - ${poker.playersCount}',
                   style: const TextStyle(color: Colors.orange, fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
                 Slider(
-                  value: Poker.playersCount.toDouble(),
+                  value: poker.playersCount.toDouble(),
                   min: 2,
                   max: 8,
                   divisions: 6,
-                  label: '${Poker.playersCount}',
+                  label: '${poker.playersCount}',
                   onChanged: (value) {
-                    Poker.playersCount = value.toInt();
+                    poker.playersCount = value.toInt();
                     setState(() {});
                   },
                 ),
@@ -158,12 +160,12 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                   textAlign: TextAlign.center,
                 ),
                 Slider(
-                  value: Poker.viewMode.toDouble(),
+                  value: poker.viewMode.toDouble(),
                   min: 1,
                   max: 3,
                   divisions: 2,
                   onChanged: (value) {
-                    Poker.viewMode = value.toInt();
+                    poker.viewMode = value.toInt();
                     setState(() {});
                   },
                 ),
@@ -186,10 +188,10 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 100),
                   child: ElevatedButton(
-                    onPressed: Poker.gameCount == 0
+                    onPressed: poker.gameCount == 0
                         ? null
                         : () {
-                            Poker.needResetLittleBlind = true;
+                            poker.needResetLittleBlind = true;
                             setState(() {});
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -205,16 +207,16 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 100),
                   child: ElevatedButton(
-                    onPressed: Poker.gameCount == 0
+                    onPressed: poker.gameCount == 0
                         ? null
                         : () {
-                            Poker.startNextGame(restart: true);
+                            poker.startNextGame(restart: true);
                             Navigator.pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Poker.timeLeftSec > 0
+                                content: poker.timeLeftSec > 0
                                     ? Text(
-                                        '${(Poker.timeLeftSec / 60).round()} minutes left',
+                                        '${(poker.timeLeftSec / 60).round()} minutes left',
                                       )
                                     : const Text('No time left'),
                                 duration: const Duration(seconds: 3),
@@ -228,10 +230,10 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 100),
                   child: ElevatedButton(
-                    onPressed: Poker.gameCount == 0
+                    onPressed: poker.gameCount == 0
                         ? null
                         : () {
-                            Poker.stopTheGame();
+                            poker.stopTheGame();
                             setState(() {});
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -268,18 +270,18 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                 ),
               ),
               onTap: () {
-                if (Poker.gameCount == 0 ||
+                if (poker.gameCount == 0 ||
                     DateTime.now()
-                            .difference(Poker.startACurrentGameTime)
+                            .difference(poker.startACurrentGameTime)
                             .inSeconds >
                         10) {
-                  Poker.startNextGame();
+                  poker.startNextGame();
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Poker.timeLeftSec > 0
+                      content: poker.timeLeftSec > 0
                           ? Text(
-                              '${(Poker.timeLeftSec / 60).round()} minutes left',
+                              '${(poker.timeLeftSec / 60).round()} minutes left',
                             )
                           : const Text('No time left'),
                       duration: const Duration(seconds: 3),
@@ -289,7 +291,7 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Nope ;) Wait ${11 - DateTime.now().difference(Poker.startACurrentGameTime).inSeconds} seconds',
+                        'Nope ;) Wait ${11 - DateTime.now().difference(poker.startACurrentGameTime).inSeconds} seconds',
                       ),
                       duration: const Duration(seconds: 1),
                     ),

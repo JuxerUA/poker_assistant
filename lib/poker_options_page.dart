@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:poker_assistant/blind_constructor_page.dart';
 import 'package:poker_assistant/poker.dart';
 
@@ -123,13 +122,14 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                       labelText: 'Total cash of the game',
                     ),
                     onSubmitted: (value) {
-                      int d = poker.allCash;
+                      var ddd = poker.allCash;
                       poker.allCash = int.tryParse(value);
-                      d = poker.allCash - d;
+                      ddd = poker.allCash - ddd;
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content:
-                              d > 0 ? Text('+$d to cash') : Text('$d to cash'),
+                          content: ddd > 0
+                              ? Text('+$ddd to cash')
+                              : Text('$ddd to cash'),
                           duration: const Duration(seconds: 1),
                         ),
                       );

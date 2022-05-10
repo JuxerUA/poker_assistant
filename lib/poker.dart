@@ -121,11 +121,14 @@ class Poker {
     int growPower,
   ) {
     var timeK = 1.0;
-    for (int i = 0; i < growPower; i++) timeK *= timePerc;
+    for (var iii = 0; iii < growPower; iii++) {
+      timeK *= timePerc;
+    }
 
     final newLittleBlind = (averagePlayerCash / growDivider * timeK).round();
-    if (newLittleBlind > currentLittleBlind)
+    if (newLittleBlind > currentLittleBlind) {
       currentLittleBlind = newLittleBlind;
+    }
 
     minLittleBlind = (averagePlayerCash * minPerc).round();
 

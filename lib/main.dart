@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:poker_assistant/my_home_page.dart';
+import 'package:poker_assistant/pages/navigation_page.dart';
 
 void main() {
   runApp(
@@ -8,8 +8,9 @@ void main() {
       theme: ThemeData(
         primarySwatch: Colors.orange,
         backgroundColor: Colors.black,
+        fontFamily: 'Bitter',
       ),
-      home: const MyHomePage(),
+      home: const NavigationPage(),
     ),
   );
 }

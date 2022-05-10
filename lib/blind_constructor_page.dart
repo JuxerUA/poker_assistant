@@ -86,8 +86,9 @@ class _BlindConstructorPageState extends State<BlindConstructorPage> {
             max: 10,
             divisions: 20,
             onChanged: (value) {
-              _minLittleBlindPercent = value;
-              setState(() {});
+              setState(() {
+                _minLittleBlindPercent = value;
+              });
             },
           ),
           //const Divider(),
@@ -182,10 +183,11 @@ class _BlindConstructorPageState extends State<BlindConstructorPage> {
             padding: const EdgeInsets.symmetric(horizontal: 100),
             child: ElevatedButton(
               onPressed: () {
-                poker.blindGrowPower = _power;
-                poker.blindGrowDivider = _divider;
-                poker.minLittleBlindPerc = _minLittleBlindPercent;
-                poker.minChipValue = _mChipVal;
+                poker
+                  ..blindGrowPower = _power
+                  ..blindGrowDivider = _divider
+                  ..minLittleBlindPerc = _minLittleBlindPercent
+                  ..minChipValue = _mChipVal;
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Options saved'),
@@ -205,43 +207,47 @@ class _BlindConstructorPageState extends State<BlindConstructorPage> {
 
   List<charts.Series<ChartBlindData, double>> _createSampleData() {
     final data = <ChartBlindData>[];
-    for (var i = 0; i <= 100; i++) {
-      final x = i * 1;
+    for (var iii = 0; iii <= 100; iii++) {
+      final xxx = iii * 1;
 
-      final tmpTimeK = x / 100;
+      final tmpTimeK = xxx / 100;
       var timeK = 1.0;
-      for (var i = 0; i < _power; i++) {
+      for (var iii = 0; iii < _power; iii++) {
         timeK *= tmpTimeK;
       }
 
       final chipsOfOnePlayer = (poker.allCash / poker.playersCount).round();
-      var y = (chipsOfOnePlayer / _divider * timeK) / chipsOfOnePlayer * 100;
+      var yyy = (chipsOfOnePlayer / _divider * timeK) / chipsOfOnePlayer * 100;
 
-      if (y < _minLittleBlindPercent) y = _minLittleBlindPercent;
+      if (yyy < _minLittleBlindPercent) {
+        yyy = _minLittleBlindPercent;
+      }
 
       //малый блайнд не может быть меньше 1 фишки
       final minMinLBPerc = 1 / chipsOfOnePlayer * 100;
-      if (y < minMinLBPerc) y = minMinLBPerc;
+      if (yyy < minMinLBPerc) {
+        yyy = minMinLBPerc;
+      }
 
-      var yInChipCount = (chipsOfOnePlayer * y * 0.01).floor();
+      var yInChipCount = (chipsOfOnePlayer * yyy * 0.01).floor();
       if (yInChipCount % _mChipVal != 0) {
         yInChipCount = ((yInChipCount / _mChipVal).floor() + 1) * _mChipVal;
       }
-      if ((chipsOfOnePlayer * y * 0.01).floor() != yInChipCount) {
-        y = yInChipCount / chipsOfOnePlayer * 100;
+      if ((chipsOfOnePlayer * yyy * 0.01).floor() != yInChipCount) {
+        yyy = yInChipCount / chipsOfOnePlayer * 100;
       }
 
-      if (i == 1) {
-        _currentStartBigBlindValue = (chipsOfOnePlayer * y * 0.01).round() * 2;
+      if (iii == 1) {
+        _currentStartBigBlindValue = (chipsOfOnePlayer * yyy * 0.01).round() * 2;
       }
-      if (i == 50) {
-        _currentMiddleBigBlindValue = (chipsOfOnePlayer * y * 0.01).round() * 2;
+      if (iii == 50) {
+        _currentMiddleBigBlindValue = (chipsOfOnePlayer * yyy * 0.01).round() * 2;
       }
-      if (i == 100) {
-        _currentEndBigBlindValue = (chipsOfOnePlayer * y * 0.01).round() * 2;
+      if (iii == 100) {
+        _currentEndBigBlindValue = (chipsOfOnePlayer * yyy * 0.01).round() * 2;
       }
 
-      data.add(ChartBlindData(x.toDouble(), y * 2));
+      data.add(ChartBlindData(xxx.toDouble(), yyy * 2));
     }
 
     return [

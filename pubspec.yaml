@@ -20,14 +20,19 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
+  dotted_border: ^2.0.0+2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   dart_code_metrics: 4.14.0
 
-
 flutter:
+  fonts:
+    - family: Bitter
+      fonts:
+        - asset: assets/Bitter-ExtraBold.ttf
 
   uses-material-design: true
 flutter_intl:

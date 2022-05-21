@@ -6,7 +6,7 @@ import 'package:poker_assistant/pages/general_page.dart';
 import 'package:poker_assistant/pages/statistics_page.dart';
 
 class NavigationPage extends StatefulWidget {
-  const NavigationPage({Key key}) : super(key: key);
+  const NavigationPage({Key? key}) : super(key: key);
 
   @override
   State<NavigationPage> createState() => _NavigationPageState();

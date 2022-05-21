@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:poker_assistant/poker.dart';
 
 class BlindConstructorPage extends StatefulWidget {
-  const BlindConstructorPage({Key key}) : super(key: key);
+  const BlindConstructorPage({Key? key}) : super(key: key);
 
   @override
   _BlindConstructorPageState createState() => _BlindConstructorPageState();

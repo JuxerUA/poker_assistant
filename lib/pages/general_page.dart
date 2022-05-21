@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GeneralPage extends StatefulWidget {
-  const GeneralPage({Key key}) : super(key: key);
+  const GeneralPage({Key? key}) : super(key: key);
 
   @override
   State<GeneralPage> createState() => _GeneralPageState();

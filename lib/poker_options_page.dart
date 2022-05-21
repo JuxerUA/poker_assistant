@@ -3,7 +3,7 @@ import 'package:poker_assistant/blind_constructor_page.dart';
 import 'package:poker_assistant/poker.dart';
 
 class PokerOptionsPage extends StatefulWidget {
-  const PokerOptionsPage({Key key}) : super(key: key);
+  const PokerOptionsPage({Key? key}) : super(key: key);
 
   @override
   _PokerOptionsPageState createState() => _PokerOptionsPageState();

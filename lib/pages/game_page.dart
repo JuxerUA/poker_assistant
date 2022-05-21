@@ -2,7 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class GamePage extends StatefulWidget {
-  const GamePage({Key key}) : super(key: key);
+  const GamePage({Key? key}) : super(key: key);
 
   @override
   State<GamePage> createState() => _GamePageState();

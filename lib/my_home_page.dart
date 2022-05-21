@@ -4,7 +4,7 @@ import 'package:poker_assistant/poker.dart';
 import 'package:poker_assistant/poker_options_page.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();

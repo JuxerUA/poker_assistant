@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poker_assistant/blind_constructor_page.dart';
-import 'package:poker_assistant/poker.dart';
+import 'package:poker_assistant/game_data.dart';
 
 class PokerOptionsPage extends StatefulWidget {
   const PokerOptionsPage({Key? key}) : super(key: key);
@@ -10,7 +10,7 @@ class PokerOptionsPage extends StatefulWidget {
 }
 
 class _PokerOptionsPageState extends State<PokerOptionsPage> {
-  final poker = Poker.instance;
+  final poker = GameData.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -99,14 +99,17 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                       labelText: 'Left game time (in minutes)',
                     ),
                     onSubmitted: (value) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Time ${poker.changeTimeLeft(int.tryParse(value)) ? 'added' : 'removed'}',
+                      final leftTime = int.tryParse(value);
+                      if (leftTime != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Time ${poker.changeTimeLeft(leftTime) ? 'added' : 'removed'}',
+                            ),
+                            duration: const Duration(seconds: 1),
                           ),
-                          duration: const Duration(seconds: 1),
-                        ),
-                      );
+                        );
+                      }
                     },
                   ),
                 ),
@@ -122,17 +125,19 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
                       labelText: 'Total cash of the game',
                     ),
                     onSubmitted: (value) {
-                      var ddd = poker.allCash;
-                      poker.allCash = int.tryParse(value);
-                      ddd = poker.allCash - ddd;
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: ddd > 0
-                              ? Text('+$ddd to cash')
-                              : Text('$ddd to cash'),
-                          duration: const Duration(seconds: 1),
-                        ),
-                      );
+                      final newCashValue = int.tryParse(value);
+                      if (newCashValue != null) {
+                        final delta = newCashValue - poker.allCash;
+                        poker.allCash = newCashValue;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: delta > 0
+                                ? Text('+$delta to cash')
+                                : Text('$delta to cash'),
+                            duration: const Duration(seconds: 1),
+                          ),
+                        );
+                      }
                     },
                   ),
                 ),

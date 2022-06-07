@@ -1,27 +1,22 @@
 import 'package:flutter/material.dart';
 
-class Poker {
-  Poker._();
+class GameData {
+  GameData._();
 
-  static final instance = Poker._();
-
-  // Poker() {
-  //   startGameTime = DateTime.now();
-  //   valueColor = Colors.grey;
-  // }
+  static final instance = GameData._();
 
   int allGameTimeSec = 3600;
   int timeLeftSec = 3600;
   int allCash = 1000;
-  int playersCount = 2;
+  int playersCount = 3;
   int viewMode = 3;
   int minChipValue = 1;
   int minLittleBlind = 5;
   double minLittleBlindPerc = 1.5;
   int currentLittleBlind = 0;
-  DateTime startGameTime;
-  DateTime startACurrentGameTime;
-  Color valueColor;
+  DateTime startGameTime = DateTime.now();
+  DateTime startACurrentGameTime = DateTime.now();
+  Color valueColor = Colors.grey;
   int gameCount = 0;
   int theLongestGameSec = 0;
   int theShortestGameSec = 999999;
@@ -78,7 +73,7 @@ class Poker {
 
     final onePlayerCash = allCash / playersCount;
 
-    valueColor = timeLeftSec > 0 ? Colors.orange : Colors.red[900];
+    valueColor = (timeLeftSec > 0) ? Colors.orange : Colors.red.shade900;
 //////////////////////////////////////////////////////////////////
 
     var timeK = 1.0;
@@ -112,34 +107,34 @@ class Poker {
   }
 
 //todo
-  int littleBlindCalculator(
-    double timePerc,
-    double averagePlayerCash,
-    double minPerc,
-    double addPerc,
-    int growDivider,
-    int growPower,
-  ) {
-    var timeK = 1.0;
-    for (var iii = 0; iii < growPower; iii++) {
-      timeK *= timePerc;
-    }
-
-    final newLittleBlind = (averagePlayerCash / growDivider * timeK).round();
-    if (newLittleBlind > currentLittleBlind) {
-      currentLittleBlind = newLittleBlind;
-    }
-
-    minLittleBlind = (averagePlayerCash * minPerc).round();
-
-    if (currentLittleBlind < minLittleBlind) {
-      currentLittleBlind = minLittleBlind;
-    }
-    if (currentLittleBlind % minChipValue != 0) {
-      currentLittleBlind =
-          ((currentLittleBlind / minChipValue).floor() + 1) * minChipValue;
-    }
-  }
+//   int littleBlindCalculator(
+//     double timePerc,
+//     double averagePlayerCash,
+//     double minPerc,
+//     double addPerc,
+//     int growDivider,
+//     int growPower,
+//   ) {
+//     var timeK = 1.0;
+//     for (var iii = 0; iii < growPower; iii++) {
+//       timeK *= timePerc;
+//     }
+//
+//     final newLittleBlind = (averagePlayerCash / growDivider * timeK).round();
+//     if (newLittleBlind > currentLittleBlind) {
+//       currentLittleBlind = newLittleBlind;
+//     }
+//
+//     minLittleBlind = (averagePlayerCash * minPerc).round();
+//
+//     if (currentLittleBlind < minLittleBlind) {
+//       currentLittleBlind = minLittleBlind;
+//     }
+//     if (currentLittleBlind % minChipValue != 0) {
+//       currentLittleBlind =
+//           ((currentLittleBlind / minChipValue).floor() + 1) * minChipValue;
+//     }
+//   }
 
   bool changeTimeLeft(int newTimeLeftMin) {
     final dTimeSec = newTimeLeftMin * 60 - timeLeftSec;

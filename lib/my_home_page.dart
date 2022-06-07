@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:poker_assistant/poker.dart';
+import 'package:poker_assistant/game_data.dart';
 import 'package:poker_assistant/poker_options_page.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -14,7 +14,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _needUpdateGameDrag = false;
   Color bgColor = Colors.black;
 
-  final poker = Poker.instance;
+  final poker = GameData.instance;
 
   @override
   Widget build(BuildContext context) {

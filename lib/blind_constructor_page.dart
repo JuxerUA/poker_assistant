@@ -1,6 +1,6 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:poker_assistant/poker.dart';
+import 'package:poker_assistant/game_data.dart';
 
 class BlindConstructorPage extends StatefulWidget {
   const BlindConstructorPage({Key? key}) : super(key: key);
@@ -10,12 +10,12 @@ class BlindConstructorPage extends StatefulWidget {
 }
 
 class _BlindConstructorPageState extends State<BlindConstructorPage> {
-  final poker = Poker.instance;
+  final poker = GameData.instance;
 
-  int _divider = Poker.instance.blindGrowDivider;
-  int _power = Poker.instance.blindGrowPower;
-  double _minLittleBlindPercent = Poker.instance.minLittleBlindPerc;
-  int _mChipVal = Poker.instance.minChipValue;
+  int _divider = GameData.instance.blindGrowDivider;
+  int _power = GameData.instance.blindGrowPower;
+  double _minLittleBlindPercent = GameData.instance.minLittleBlindPerc;
+  int _mChipVal = GameData.instance.minChipValue;
 
   int _currentStartBigBlindValue = 0;
   int _currentMiddleBigBlindValue = 0;
@@ -238,10 +238,12 @@ class _BlindConstructorPageState extends State<BlindConstructorPage> {
       }
 
       if (iii == 1) {
-        _currentStartBigBlindValue = (chipsOfOnePlayer * yyy * 0.01).round() * 2;
+        _currentStartBigBlindValue =
+            (chipsOfOnePlayer * yyy * 0.01).round() * 2;
       }
       if (iii == 50) {
-        _currentMiddleBigBlindValue = (chipsOfOnePlayer * yyy * 0.01).round() * 2;
+        _currentMiddleBigBlindValue =
+            (chipsOfOnePlayer * yyy * 0.01).round() * 2;
       }
       if (iii == 100) {
         _currentEndBigBlindValue = (chipsOfOnePlayer * yyy * 0.01).round() * 2;

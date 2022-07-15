@@ -1,9 +1,11 @@
+import 'package:cube_transition_plus/cube_transition_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:poker_assistant/pages/blind_page.dart';
 import 'package:poker_assistant/pages/game_page.dart';
 import 'package:poker_assistant/pages/general_page.dart';
 import 'package:poker_assistant/pages/statistics_page.dart';
+import 'package:poker_assistant/widgets/back_to_game_widget.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({Key? key}) : super(key: key);
@@ -28,11 +30,11 @@ class _NavigationPageState extends State<NavigationPage> {
   @override
   void dispose() {
     _gameController
-      ..dispose()
-      ..removeListener(_gameViewListener);
+      ..removeListener(_gameViewListener)
+      ..dispose();
     _pagesController
-      ..dispose()
-      ..removeListener(_pagesViewListener);
+      ..removeListener(_pagesViewListener)
+      ..dispose();
     super.dispose();
   }
 
@@ -44,12 +46,35 @@ class _NavigationPageState extends State<NavigationPage> {
         // physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         children: [
-          PageView(
-            controller: _pagesController,
-            children: const [
-              StatisticsPage(),
-              GeneralPage(),
-              BlindPage(),
+          Column(
+            children: [
+              KeepAlive(
+                keepAlive: true,
+                child: Expanded(
+                  child: CubePageView(
+                    controller: _pagesController,
+                    children: const [
+                      StatisticsPage(),
+                      GeneralPage(),
+                      BlindPage(),
+                    ],
+                  ),
+                ),
+              ),
+              BottomNavigationWidget(
+                toLeft: () => _pagesController.previousPage(
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.easeInOut,
+                ),
+                toRight: () => _pagesController.nextPage(
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.easeInOut,
+                ),
+                toGame: () => _gameController.nextPage(
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.easeInOut,
+                ),
+              ),
             ],
           ),
           const GamePage(),

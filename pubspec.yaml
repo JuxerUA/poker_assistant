@@ -21,6 +21,8 @@ dependencies:
   dotted_border: ^2.0.0+2
   numberpicker: ^2.1.1
   shared_preferences: ^2.0.15
+  carousel_slider: ^4.1.1
+  cube_transition_plus: ^2.0.1
 
 dev_dependencies:
   flutter_test:

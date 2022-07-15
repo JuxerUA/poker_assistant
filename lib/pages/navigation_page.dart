@@ -48,17 +48,14 @@ class _NavigationPageState extends State<NavigationPage> {
         children: [
           Column(
             children: [
-              KeepAlive(
-                keepAlive: true,
-                child: Expanded(
-                  child: CubePageView(
-                    controller: _pagesController,
-                    children: const [
-                      StatisticsPage(),
-                      GeneralPage(),
-                      BlindPage(),
-                    ],
-                  ),
+              Expanded(
+                child: CubePageView(
+                  controller: _pagesController,
+                  children: const [
+                    StatisticsPage(),
+                    GeneralPage(),
+                    BlindPage(),
+                  ],
                 ),
               ),
               BottomNavigationWidget(

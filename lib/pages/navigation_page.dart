@@ -5,7 +5,7 @@ import 'package:poker_assistant/pages/blind_page.dart';
 import 'package:poker_assistant/pages/game_page.dart';
 import 'package:poker_assistant/pages/general_page.dart';
 import 'package:poker_assistant/pages/statistics_page.dart';
-import 'package:poker_assistant/widgets/back_to_game_widget.dart';
+import 'package:poker_assistant/widgets/bottom_navigation_widget.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({Key? key}) : super(key: key);
@@ -43,7 +43,6 @@ class _NavigationPageState extends State<NavigationPage> {
     return Scaffold(
       body: PageView(
         controller: _gameController,
-        // physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         children: [
           Column(

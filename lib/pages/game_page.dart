@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:poker_assistant/res/res.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({Key? key}) : super(key: key);
@@ -12,10 +13,10 @@ class _GamePageState extends State<GamePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
+      color: PokerColors.black,
       child: DottedBorder(
         borderType: BorderType.RRect,
-        color: Colors.orange,
+        color: PokerColors.orange,
         strokeWidth: 30,
         dashPattern: const <double>[20, 20],
         padding: const EdgeInsets.all(20),
@@ -23,12 +24,9 @@ class _GamePageState extends State<GamePage> {
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           child: Container(
-            color: Colors.black,
+            color: PokerColors.black,
             child: const Center(
-              child: Text(
-                'Poker',
-                style: TextStyle(color: Colors.orange, fontSize: 40),
-              ),
+              child: Text('Poker', style: PokerStyles.headerOrange),
             ),
           ),
         ),

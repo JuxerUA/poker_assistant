@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poker_assistant/widgets/poker_page_scaffold.dart';
 
 class BlindPage extends StatefulWidget {
   const BlindPage({Key? key}) : super(key: key);
@@ -10,6 +11,12 @@ class BlindPage extends StatefulWidget {
 class _BlindPageState extends State<BlindPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.red);
+    return PokerPageScaffold(
+      title: 'Blinds',
+      background: Colors.red,
+      body: Column(
+        children: [Text('in progress..')],
+      ),
+    );
   }
 }

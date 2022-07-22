@@ -259,7 +259,7 @@ class _PokerOptionsPageState extends State<PokerOptionsPage> {
             child: InkWell(
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(width: 5),
+                  border: const Border.fromBorderSide(BorderSide(width: 5)),
                   color: Colors.orange,
                   borderRadius: BorderRadius.circular(20),
                 ),

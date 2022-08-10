@@ -1,12 +1,14 @@
-import 'package:cube_transition_plus/cube_transition_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:poker_assistant/pages/blind_page.dart';
 import 'package:poker_assistant/pages/game_page.dart';
 import 'package:poker_assistant/pages/general_page.dart';
+import 'package:poker_assistant/pages/settings_page.dart';
 import 'package:poker_assistant/pages/statistics_page.dart';
 import 'package:poker_assistant/res/res.dart';
+import 'package:poker_assistant/res/settings.dart';
 import 'package:poker_assistant/widgets/bottom_navigation_widget.dart';
+import 'package:poker_assistant/widgets/game_overlay.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({Key? key}) : super(key: key);
@@ -15,7 +17,8 @@ class NavigationPage extends StatefulWidget {
   State<NavigationPage> createState() => _NavigationPageState();
 }
 
-class _NavigationPageState extends State<NavigationPage> with AutomaticKeepAliveClientMixin<NavigationPage> {
+class _NavigationPageState extends State<NavigationPage>
+    with AutomaticKeepAliveClientMixin<NavigationPage> {
   final PageController _gameController = PageController();
   final PageController _pagesController = PageController(initialPage: 1);
 
@@ -39,6 +42,7 @@ class _NavigationPageState extends State<NavigationPage> with AutomaticKeepAlive
     _pagesController
       ..removeListener(_pagesViewListener)
       ..dispose();
+    Game.instance.dispose();
     super.dispose();
   }
 
@@ -48,39 +52,83 @@ class _NavigationPageState extends State<NavigationPage> with AutomaticKeepAlive
 
     return Scaffold(
       backgroundColor: PokerColors.background,
-      body: PageView(
-        controller: _gameController,
-        scrollDirection: Axis.vertical,
+      body: Stack(
         children: [
-          Column(
+          PageView(
+            controller: _gameController,
+            scrollDirection: Axis.vertical,
             children: [
-              Expanded(
-                child: CubePageView(
-                  controller: _pagesController,
-                  children: const [
-                    StatisticsPage(),
-                    GeneralPage(),
-                    BlindPage(),
-                  ],
-                ),
+              Column(
+                children: [
+                  Expanded(
+                    child: Stack(
+                      alignment: AlignmentDirectional.topEnd,
+                      children: [
+                        PageView(
+                          controller: _pagesController,
+                          children: const [
+                            StatisticsPage(),
+                            GeneralPage(),
+                            BlindPage(),
+                          ],
+                        ),
+
+                        /// Settings button
+                        IconButton(
+                          iconSize: 42,
+                          padding: const EdgeInsets.all(10),
+                          onPressed: _openSettingsPage,
+                          icon: const Icon(Icons.settings),
+                        ),
+                      ],
+                    ),
+                  ),
+                  BottomNavigationWidget(
+                    toLeft: () => _pagesController.previousPage(
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeInOut,
+                    ),
+                    toRight: () => _pagesController.nextPage(
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeInOut,
+                    ),
+                    toGame: () => _gameController.nextPage(
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeInOut,
+                    ),
+                  ),
+                ],
               ),
-              BottomNavigationWidget(
-                toLeft: () => _pagesController.previousPage(
-                  duration: const Duration(milliseconds: 400),
-                  curve: Curves.easeInOut,
-                ),
-                toRight: () => _pagesController.nextPage(
-                  duration: const Duration(milliseconds: 400),
-                  curve: Curves.easeInOut,
-                ),
-                toGame: () => _gameController.nextPage(
-                  duration: const Duration(milliseconds: 400),
-                  curve: Curves.easeInOut,
-                ),
+              Stack(
+                children: const [
+                  /// Game
+                  GamePage(),
+
+                  /// Game overlay
+                  GameOverlay(),
+                ],
               ),
             ],
           ),
-          const GamePage(),
+
+          /// Pause border
+          IgnorePointer(
+            child: ValueListenableBuilder<bool>(
+              valueListenable: Game.instance.pause,
+              builder: (context, pause, child) {
+                return Offstage(
+                  offstage: !pause,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      border: Border.fromBorderSide(
+                        BorderSide(color: PokerColors.orange, width: 2),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -105,4 +153,8 @@ class _NavigationPageState extends State<NavigationPage> with AutomaticKeepAlive
   }
 
   void _pagesViewListener() {}
+
+  void _openSettingsPage() {
+    Navigator.of(context).pushNamed(SettingsPage.routeName);
+  }
 }

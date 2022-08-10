@@ -240,7 +240,7 @@ dart_code_metrics:
     - avoid-wrapping-in-padding
     # - prefer-extracting-callbacks
     - prefer-trailing-comma:
-        break-on: 3
+        break-on: 4
     - prefer-conditional-expressions
     - prefer-single-widget-per-file:
         ignore-private-widgets: true

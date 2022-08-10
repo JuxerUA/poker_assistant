@@ -5,6 +5,7 @@ import 'package:poker_assistant/pages/blind_page.dart';
 import 'package:poker_assistant/pages/game_page.dart';
 import 'package:poker_assistant/pages/general_page.dart';
 import 'package:poker_assistant/pages/statistics_page.dart';
+import 'package:poker_assistant/res/res.dart';
 import 'package:poker_assistant/widgets/bottom_navigation_widget.dart';
 
 class NavigationPage extends StatefulWidget {
@@ -14,11 +15,14 @@ class NavigationPage extends StatefulWidget {
   State<NavigationPage> createState() => _NavigationPageState();
 }
 
-class _NavigationPageState extends State<NavigationPage> {
+class _NavigationPageState extends State<NavigationPage> with AutomaticKeepAliveClientMixin<NavigationPage> {
   final PageController _gameController = PageController();
   final PageController _pagesController = PageController(initialPage: 1);
 
   var _isStatusBarEnabled = true;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -40,7 +44,10 @@ class _NavigationPageState extends State<NavigationPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Scaffold(
+      backgroundColor: PokerColors.background,
       body: PageView(
         controller: _gameController,
         scrollDirection: Axis.vertical,

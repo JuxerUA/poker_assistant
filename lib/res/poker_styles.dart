@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:poker_assistant/res/res.dart';
 
 class PokerStyles {
-  static const headerDark = TextStyle(
+  static const headerBlack = TextStyle(
     fontFamily: 'Bitter',
-    color: PokerColors.dark,
-    fontSize: 38,
+    color: PokerColors.black,
+    fontSize: 50,
     fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,
   );
 
-  static const headerOrange = TextStyle(
+  static const headerYellow = TextStyle(
     fontFamily: 'Bitter',
-    color: PokerColors.orange,
+    color: PokerColors.yellow,
     fontSize: 38,
     fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,

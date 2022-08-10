@@ -16,6 +16,7 @@ class PokerPageScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: PokerColors.background,
       body: Container(
         padding: const EdgeInsets.all(16),
         color: background,
@@ -24,11 +25,7 @@ class PokerPageScaffold extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(8),
-              child: Text(
-                title,
-                style: PokerStyles.headerDark,
-                textAlign: TextAlign.center,
-              ),
+              child: Text(title, style: PokerStyles.headerBlack),
             ),
             Expanded(child: body),
           ],

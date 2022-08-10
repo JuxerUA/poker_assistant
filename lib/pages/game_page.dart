@@ -9,14 +9,20 @@ class GamePage extends StatefulWidget {
   State<GamePage> createState() => _GamePageState();
 }
 
-class _GamePageState extends State<GamePage> {
+class _GamePageState extends State<GamePage>
+    with AutomaticKeepAliveClientMixin<GamePage> {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Container(
       color: PokerColors.black,
       child: DottedBorder(
         borderType: BorderType.RRect,
-        color: PokerColors.orange,
+        color: PokerColors.yellow,
         strokeWidth: 30,
         dashPattern: const <double>[20, 20],
         padding: const EdgeInsets.all(20),
@@ -26,7 +32,7 @@ class _GamePageState extends State<GamePage> {
           child: Container(
             color: PokerColors.black,
             child: const Center(
-              child: Text('Poker', style: PokerStyles.headerOrange),
+              child: Text('Poker', style: PokerStyles.headerYellow),
             ),
           ),
         ),

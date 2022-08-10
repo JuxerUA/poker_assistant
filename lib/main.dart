@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poker_assistant/pages/navigation_page.dart';
+import 'package:poker_assistant/res/res.dart';
 import 'package:poker_assistant/storage.dart';
 
 Future<void> main() async {
@@ -10,7 +11,7 @@ Future<void> main() async {
       title: 'Poker Assistant',
       theme: ThemeData(
         primarySwatch: Colors.orange,
-        backgroundColor: Colors.black,
+        backgroundColor: PokerColors.background,
         fontFamily: 'Bitter',
       ),
       home: const NavigationPage(),

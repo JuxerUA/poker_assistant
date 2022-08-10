@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:numberpicker/numberpicker.dart';
 import 'package:poker_assistant/game_data.dart';
 import 'package:poker_assistant/res/constants.dart';
+import 'package:poker_assistant/res/res.dart';
 import 'package:poker_assistant/widgets/poker_page_scaffold.dart';
 
 class GeneralPage extends StatefulWidget {
@@ -11,14 +12,20 @@ class GeneralPage extends StatefulWidget {
   State<GeneralPage> createState() => _GeneralPageState();
 }
 
-class _GeneralPageState extends State<GeneralPage> {
+class _GeneralPageState extends State<GeneralPage>
+    with AutomaticKeepAliveClientMixin<GeneralPage> {
   final _game = GameData.instance;
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return PokerPageScaffold(
       title: 'General',
-      background: Colors.green,
+      background: PokerColors.background,
       body: Column(
         children: [
           Row(
@@ -32,54 +39,48 @@ class _GeneralPageState extends State<GeneralPage> {
                 ),
               ),
               const SizedBox(width: 6),
-              NumberPicker(
-                minValue: kMinPlayersCount,
-                maxValue: kMaxPlayersCount,
-                itemWidth: 30,
-                value: _game.playersCount,
-                onChanged: (count) => _game.playersCount = count,
-                haptics: true,
-              ),
-
-              /// Number of players
-              const RotatedBox(
-                quarterTurns: 3,
-                child: Text(
-                  'Number of players',
-                  style: TextStyle(color: Colors.orange, fontSize: 20),
+              SizedBox(
+                height: 100,
+                width: 40,
+                child: PageView(
+                  scrollDirection: Axis.vertical,
+                  padEnds: false,
+                  controller: PageController(viewportFraction: 0.3),
+                  children: List.generate(
+                    kMaxPlayersCount - kMinPlayersCount,
+                    (index) => Container(
+                      width: 30,
+                      height: 30,
+                      color: PokerColors.orange,
+                      child: Center(child: Text(index.toString())),
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(width: 6),
-              NumberPicker(
-                minValue: kMinPlayersCount,
-                maxValue: kMaxPlayersCount,
-                itemWidth: 30,
-                value: _game.playersCount,
-                onChanged: (count) => _game.playersCount = count,
-                haptics: true,
-              ),
-
-              /// Number of players
-              const RotatedBox(
-                quarterTurns: 3,
-                child: Text(
-                  'Number of players',
-                  style: TextStyle(color: Colors.orange, fontSize: 20),
+              const SizedBox.square(dimension: 10),
+              SizedBox(
+                width: 100,
+                height: 500,
+                child: CupertinoPicker(
+                  diameterRatio: 1,
+                  itemExtent: 50,
+                  squeeze: 2,
+                  useMagnifier: true,
+                  looping: true,
+                  onSelectedItemChanged: _onItemChanged,
+                  children: List.generate(
+                    kMaxPlayersCount - kMinPlayersCount,
+                        (index) => Center(child: Text((index + kMinPlayersCount).toString())),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 6),
-              NumberPicker(
-                minValue: kMinPlayersCount,
-                maxValue: kMaxPlayersCount,
-                itemWidth: 30,
-                value: _game.playersCount,
-                onChanged: (count) => _game.playersCount = count,
-                haptics: true,
               ),
             ],
           ),
         ],
       ),
     );
+  }
+
+  void _onItemChanged(int value) {
   }
 }

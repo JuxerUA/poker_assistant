@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:poker_assistant/pages/game/game_overlay/overlay_button.dart';
 import 'package:poker_assistant/res/res.dart';
-import 'package:poker_assistant/res/settings.dart';
-import 'package:poker_assistant/widgets/overlay_button.dart';
 
 class GameOverlay extends StatelessWidget {
   const GameOverlay({
@@ -49,6 +48,7 @@ class GameOverlay extends StatelessWidget {
                           image: Icons.person_add,
                           text: 'Add player',
                           onTap: Game.instance.addPlayer,
+                          isVertical: true,
                         ),
                       ),
                       Flexible(
@@ -56,6 +56,7 @@ class GameOverlay extends StatelessWidget {
                           image: Icons.person_remove,
                           text: 'Player out',
                           onTap: Game.instance.removePlayer,
+                          isVertical: true,
                         ),
                       ),
                     ],

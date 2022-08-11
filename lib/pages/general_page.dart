@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:poker_assistant/game_data.dart';
-import 'package:poker_assistant/res/constants.dart';
 import 'package:poker_assistant/res/res.dart';
 import 'package:poker_assistant/widgets/poker_page_scaffold.dart';
 
@@ -14,8 +12,6 @@ class GeneralPage extends StatefulWidget {
 
 class _GeneralPageState extends State<GeneralPage>
     with AutomaticKeepAliveClientMixin<GeneralPage> {
-  final _game = GameData.instance;
-
   @override
   bool get wantKeepAlive => true;
 
@@ -25,7 +21,7 @@ class _GeneralPageState extends State<GeneralPage>
 
     return PokerPageScaffold(
       title: 'General',
-      background: PokerColors.background,
+      background: PokerColors.grey,
       body: Column(
         children: [
           Row(
@@ -70,7 +66,9 @@ class _GeneralPageState extends State<GeneralPage>
                   onSelectedItemChanged: _onItemChanged,
                   children: List.generate(
                     kMaxPlayersCount - kMinPlayersCount,
-                        (index) => Center(child: Text((index + kMinPlayersCount).toString())),
+                    (index) => Center(
+                      child: Text((index + kMinPlayersCount).toString()),
+                    ),
                   ),
                 ),
               ),
@@ -81,6 +79,7 @@ class _GeneralPageState extends State<GeneralPage>
     );
   }
 
-  void _onItemChanged(int value) {
+  void _onItemChanged(int _) {
+    //TODO
   }
 }

@@ -16,7 +16,7 @@ class PokerPageScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: PokerColors.background,
+      backgroundColor: PokerColors.grey,
       body: Container(
         padding: const EdgeInsets.all(16),
         color: background,

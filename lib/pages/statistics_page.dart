@@ -20,9 +20,9 @@ class _StatisticsPageState extends State<StatisticsPage>
 
     return PokerPageScaffold(
       title: 'Statistics',
-      background: PokerColors.background,
+      background: PokerColors.grey,
       body: Column(
-        children: [Text('in progress..')],
+        children: const [Text('in progress..')],
       ),
     );
   }

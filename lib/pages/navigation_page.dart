@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:poker_assistant/pages/blind_page.dart';
-import 'package:poker_assistant/pages/game_page.dart';
+import 'package:poker_assistant/pages/game/game_overlay/game_overlay.dart';
+import 'package:poker_assistant/pages/game/game_page.dart';
 import 'package:poker_assistant/pages/general_page.dart';
 import 'package:poker_assistant/pages/settings_page.dart';
 import 'package:poker_assistant/pages/statistics_page.dart';
 import 'package:poker_assistant/res/res.dart';
-import 'package:poker_assistant/res/settings.dart';
 import 'package:poker_assistant/widgets/bottom_navigation_widget.dart';
-import 'package:poker_assistant/widgets/game_overlay.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({Key? key}) : super(key: key);
@@ -51,7 +50,7 @@ class _NavigationPageState extends State<NavigationPage>
     super.build(context);
 
     return Scaffold(
-      backgroundColor: PokerColors.background,
+      backgroundColor: PokerColors.grey,
       body: Stack(
         children: [
           PageView(
@@ -100,7 +99,7 @@ class _NavigationPageState extends State<NavigationPage>
                 ],
               ),
               Stack(
-                children:  [
+                children: [
                   /// Game
                   const GamePage(),
 
@@ -160,6 +159,10 @@ class _NavigationPageState extends State<NavigationPage>
 
   void _goUp() {
     //TODO
-    _gameController.animateToPage(0, duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+    _gameController.animateToPage(
+      0,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeIn,
+    );
   }
 }

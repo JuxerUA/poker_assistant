@@ -8,17 +8,20 @@ class OverlayButton extends StatelessWidget {
     required this.image,
     required this.text,
     required this.onTap,
+    this.isVertical = false,
     Key? key,
   }) : super(key: key);
+
+  static const paddingSize = 16.0;
 
   final IconData image;
   final String text;
   final VoidCallback onTap;
+  final bool isVertical;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      final isVertical = constraints.maxWidth < constraints.maxHeight * 1.6;
       final minSize = min(constraints.maxWidth, constraints.maxHeight);
 
       return InkWell(
@@ -26,7 +29,7 @@ class OverlayButton extends StatelessWidget {
         onTap: onTap,
         child: Container(
           margin: const EdgeInsets.all(8),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(paddingSize),
           decoration: const BoxDecoration(
             color: PokerColors.dark,
             borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -52,13 +55,13 @@ class OverlayButton extends StatelessWidget {
               : Row(
                   children: [
                     SizedBox(
-                      width: minSize - 16 - 16,
+                      width: minSize - paddingSize * 2,
                       child: Center(child: Icon(image, size: minSize / 2)),
                     ),
                     const SizedBox(width: 16),
                     Text(
                       text,
-                      style: PokerStyles(FontSize.s20, PokerColors.orange),
+                      style: PokerStyles(FontSize.s20, PokerColors.lightBlack),
                     ),
                   ],
                 ),

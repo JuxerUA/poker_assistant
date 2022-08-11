@@ -20,9 +20,9 @@ class _BlindPageState extends State<BlindPage>
 
     return PokerPageScaffold(
       title: 'Blinds',
-      background: PokerColors.background,
+      background: PokerColors.grey,
       body: Column(
-        children: [Text('in progress..')],
+        children: const [Text('in progress..')],
       ),
     );
   }

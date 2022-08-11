@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:poker_assistant/pages/game/view_modes/view_modes.dart';
 
 /// Variables responsible for application settings (shows blinds or bet)
 class Settings {
   Settings._();
 
   static final Settings instance = Settings._();
-// TODO
+
+  bool withBlinds = true;
+
+  late ValueNotifier<ViewModes> viewMode = ValueNotifier(ViewModes.viewMode1);
 }
 
 /// Variables that set the settings at the start of the game (total cash, players count)
@@ -24,13 +28,21 @@ class Game {
 
   late ValueNotifier<bool> pause = ValueNotifier(false);
   late ValueNotifier<bool> showGameOverlay = ValueNotifier(false);
+  late ValueNotifier<bool> gameInProgress = ValueNotifier(false);
+
+  bool withBlinds = true;
+  int littleBlind = 2;
+
+  int get bigBlind => littleBlind * 2;
 
   void dispose() {
     pause.dispose();
     showGameOverlay.dispose();
   }
 
-  void startNextRound() {}
+  void startNextRound() {
+    gameInProgress.value = true;
+  }
 
   void addPlayer() {}
 

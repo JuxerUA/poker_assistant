@@ -100,12 +100,12 @@ class _NavigationPageState extends State<NavigationPage>
                 ],
               ),
               Stack(
-                children: const [
+                children:  [
                   /// Game
-                  GamePage(),
+                  const GamePage(),
 
                   /// Game overlay
-                  GameOverlay(),
+                  GameOverlay(goUp: _goUp),
                 ],
               ),
             ],
@@ -156,5 +156,10 @@ class _NavigationPageState extends State<NavigationPage>
 
   void _openSettingsPage() {
     Navigator.of(context).pushNamed(SettingsPage.routeName);
+  }
+
+  void _goUp() {
+    //TODO
+    _gameController.animateToPage(0, duration: Duration(milliseconds: 300), curve: Curves.easeIn);
   }
 }

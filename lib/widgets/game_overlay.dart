@@ -4,7 +4,12 @@ import 'package:poker_assistant/res/settings.dart';
 import 'package:poker_assistant/widgets/overlay_button.dart';
 
 class GameOverlay extends StatelessWidget {
-  const GameOverlay({Key? key}) : super(key: key);
+  const GameOverlay({
+    required this.goUp,
+    Key? key,
+  }) : super(key: key);
+
+  final VoidCallback goUp;
 
   @override
   Widget build(BuildContext context) {
@@ -14,33 +19,44 @@ class GameOverlay extends StatelessWidget {
         return Offstage(
           offstage: !showGameOverlay,
           child: Container(
-            color: PokerColors.black.withOpacity(0.2),
+            color: PokerColors.black.withOpacity(0.9),
             padding: const EdgeInsets.all(24),
             child: Column(
               children: [
-                OverlayButton(
-                  image: Icons.arrow_upward,
-                  text: 'Go up!',
-                  onTap: _goUp,
+                Flexible(
+                  flex: 3,
+                  child: OverlayButton(
+                    image: Icons.arrow_upward,
+                    text: 'Go up!',
+                    onTap: goUp,
+                  ),
                 ),
-                OverlayButton(
-                  image: Icons.cancel_outlined,
-                  text: 'Next round!',
-                  onTap: Game.instance.startNextRound,
+                Flexible(
+                  flex: 3,
+                  child: OverlayButton(
+                    image: Icons.play_arrow,
+                    text: 'Next round!',
+                    onTap: Game.instance.startNextRound,
+                  ),
                 ),
-                Expanded(
+                Flexible(
+                  flex: 3,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      OverlayButton(
-                        image: Icons.person_add,
-                        text: 'Add player',
-                        onTap: Game.instance.addPlayer,
+                      Flexible(
+                        child: OverlayButton(
+                          image: Icons.person_add,
+                          text: 'Add player',
+                          onTap: Game.instance.addPlayer,
+                        ),
                       ),
-                      OverlayButton(
-                        image: Icons.person_remove,
-                        text: 'Remove player',
-                        onTap: Game.instance.removePlayer,
+                      Flexible(
+                        child: OverlayButton(
+                          image: Icons.person_remove,
+                          text: 'Player out',
+                          onTap: Game.instance.removePlayer,
+                        ),
                       ),
                     ],
                   ),
@@ -48,12 +64,23 @@ class GameOverlay extends StatelessWidget {
                 ValueListenableBuilder<bool>(
                   valueListenable: Game.instance.pause,
                   builder: (context, pause, child) {
-                    return OverlayButton(
-                      image: Icons.pause,
-                      text: 'Pause',
-                      onTap: Game.instance.pauseGame,
+                    return Flexible(
+                      flex: 3,
+                      child: OverlayButton(
+                        image: pause ? Icons.play_arrow_outlined : Icons.pause,
+                        text: pause ? 'Continue' : 'Pause',
+                        onTap: Game.instance.changePause,
+                      ),
                     );
                   },
+                ),
+                Flexible(
+                  flex: 4,
+                  child: OverlayButton(
+                    image: Icons.cancel,
+                    text: 'Back to game',
+                    onTap: () => Game.instance.showGameOverlay.value = false,
+                  ),
                 ),
               ],
             ),
@@ -61,9 +88,5 @@ class GameOverlay extends StatelessWidget {
         );
       },
     );
-  }
-
-  void _goUp() {
-    //TODO
   }
 }

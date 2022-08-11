@@ -36,5 +36,5 @@ class Game {
 
   void removePlayer() {}
 
-  void pauseGame() => pause.value = true;
+  void changePause() => pause.value = !pause.value;
 }

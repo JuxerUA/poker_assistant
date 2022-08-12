@@ -6,7 +6,8 @@ class ViewMode3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const textColor = PokerColors.grey;
+    // TODO should be red if time left
+    const textColor = PokerColors.yellow;
     final littleBlindText = Game.instance.littleBlind.toString();
     final bigBlindText = Game.instance.bigBlind.toString();
 

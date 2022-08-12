@@ -16,32 +16,34 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PokerColors.grey,
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            const Text(
-              'View mode',
-              style: TextStyle(color: Colors.orange, fontSize: 20),
-              textAlign: TextAlign.center,
-            ),
-            Slider(
-              value: settings.viewMode.value.index.toDouble() + 1,
-              min: 1,
-              max: ViewModes.values.length.toDouble() + 1,
-              divisions: 2,
-              onChanged: (value) {
-                final index = value - 1;
-                if (index >= 0 && index < ViewModes.values.length) {
-                  setState(() {
-                    settings.viewMode.value = ViewModes.values
-                        .firstWhere((mode) => mode.index == index);
-                  });
-                }
-              },
-            ),
-          ],
-        ),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(8),
+            child: Text('Settings', style: PokerStyles.headerBlack),
+          ),
+          const Text(
+            'View mode',
+            style: TextStyle(color: Colors.orange, fontSize: 20),
+            textAlign: TextAlign.center,
+          ),
+          Slider(
+            value: settings.viewMode.value.index.toDouble() + 1,
+            min: 1,
+            max: ViewModes.values.length.toDouble() + 1,
+            divisions: 2,
+            onChanged: (value) {
+              final index = value - 1;
+              if (index >= 0 && index < ViewModes.values.length) {
+                setState(() {
+                  settings.viewMode.value = ViewModes.values
+                      .firstWhere((mode) => mode.index == index);
+                });
+              }
+            },
+          ),
+        ],
       ),
     );
   }

@@ -8,10 +8,10 @@ class Settings {
 
   static final Settings instance = Settings._();
 
-  late ValueNotifier<ViewModes> viewMode = ValueNotifier(ViewModes.viewMode3);
+  late ValueNotifier<ViewModes> viewMode = ValueNotifier(ViewModes.viewMode1);
 
   bool withBlinds = true;
-  int minChipValue = 1;
+  int minChipValue = 1; // 1, 2, 5, 10, 20, 25, 50 ???
 }
 
 /// Variables that set the settings at the start of the game (total cash, players count, blinds settings)
@@ -36,13 +36,23 @@ class Game {
   late ValueNotifier<bool> gameInProgress = ValueNotifier(false);
 
   bool withBlinds = true;
-  int littleBlind = 2;
+  int littleBlind = 0;
 
   int get bigBlind => littleBlind * 2;
+
+  Color get getCurrentBlindsColor {
+    // TODO should be red if time is over
+    return PokerColors.orange;
+  }
 
   void dispose() {
     pause.dispose();
     showGameOverlay.dispose();
+  }
+
+  void startNewGame() {
+    gameInProgress.value = true;
+    showGameOverlay.value = false;
   }
 
   void startNextRound() {
@@ -75,11 +85,11 @@ class Game {
 
     final minLittleBlind =
         (averagePlayerCash * gameSettings.minLittleBlindPercentage).round();
-    if (prevLittleBlind < minLittleBlind) {
+    if (result < minLittleBlind) {
       result = minLittleBlind;
     }
 
-    if (prevLittleBlind % settings.minChipValue != 0) {
+    if (result % settings.minChipValue != 0) {
       result = ((result / settings.minChipValue).floor() + 1) *
           settings.minChipValue;
     }

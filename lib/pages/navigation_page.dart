@@ -56,6 +56,7 @@ class _NavigationPageState extends State<NavigationPage>
           PageView(
             controller: _gameController,
             scrollDirection: Axis.vertical,
+            physics: const NeverScrollableScrollPhysics(),
             children: [
               Column(
                 children: [
@@ -77,7 +78,10 @@ class _NavigationPageState extends State<NavigationPage>
                           iconSize: 42,
                           padding: const EdgeInsets.all(10),
                           onPressed: _openSettingsPage,
-                          icon: const Icon(Icons.settings),
+                          icon: const Icon(
+                            Icons.settings,
+                            color: PokerColors.lightBlack,
+                          ),
                         ),
                       ],
                     ),

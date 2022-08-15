@@ -25,7 +25,10 @@ class PokerPageScaffold extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(8),
-              child: Text(title, style: PokerStyles.headerBlack),
+              child: Text(
+                title,
+                style: PokerStyles(FontSize.s50, PokerColors.lightBlack),
+              ),
             ),
             Expanded(child: body),
           ],

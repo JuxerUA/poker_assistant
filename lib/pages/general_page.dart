@@ -62,7 +62,6 @@ class _GeneralPageState extends State<GeneralPage>
                   itemExtent: 50,
                   squeeze: 2,
                   useMagnifier: true,
-                  looping: true,
                   onSelectedItemChanged: _onItemChanged,
                   children: List.generate(
                     kMaxPlayersCount - kMinPlayersCount,

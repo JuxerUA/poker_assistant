@@ -6,27 +6,28 @@ class ViewMode1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO should be red if time left
-    const textColor = PokerColors.orange;
+    final textColor = game.getCurrentBlindsColor;
 
-    return FittedBox(
-      child: RotatedBox(
-        quarterTurns: 1,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const SizedBox(width: 50),
-            Text(
-              '${game.bigBlind}',
-              style: PokerStyles(FontSize.s250, textColor),
-            ),
-            const SizedBox(width: 50),
-            Text(
-              '${game.littleBlind}',
-              style: PokerStyles(FontSize.s100, textColor),
-            ),
-            const SizedBox(width: 50),
-          ],
+    return Center(
+      child: FittedBox(
+        child: RotatedBox(
+          quarterTurns: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const SizedBox(width: 50),
+              Text(
+                '${game.bigBlind}',
+                style: PokerStyles(FontSize.s250, textColor),
+              ),
+              const SizedBox(width: 50),
+              Text(
+                '${game.littleBlind}',
+                style: PokerStyles(FontSize.s100, textColor),
+              ),
+              const SizedBox(width: 50),
+            ],
+          ),
         ),
       ),
     );

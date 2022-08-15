@@ -6,9 +6,7 @@ class ViewMode2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO should be red if time left
-    const textColor = PokerColors.orange;
-    final game = Game.instance;
+    final textColor = game.getCurrentBlindsColor;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

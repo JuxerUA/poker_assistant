@@ -38,43 +38,46 @@ class GameOverlay extends StatelessWidget {
                     onTap: Game.instance.startNextRound,
                   ),
                 ),
-                Flexible(
-                  flex: 3,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        child: OverlayButton(
-                          image: Icons.person_add,
-                          text: 'Add player',
-                          onTap: Game.instance.addPlayer,
-                          isVertical: true,
+                if (game.gameInProgress.value)
+                  Flexible(
+                    flex: 3,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: OverlayButton(
+                            image: Icons.person_add,
+                            text: 'Add player',
+                            onTap: Game.instance.addPlayer,
+                            isVertical: true,
+                          ),
                         ),
-                      ),
-                      Flexible(
-                        child: OverlayButton(
-                          image: Icons.person_remove,
-                          text: 'Player out',
-                          onTap: Game.instance.removePlayer,
-                          isVertical: true,
+                        Flexible(
+                          child: OverlayButton(
+                            image: Icons.person_remove,
+                            text: 'Player out',
+                            onTap: Game.instance.removePlayer,
+                            isVertical: true,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                ValueListenableBuilder<bool>(
-                  valueListenable: Game.instance.pause,
-                  builder: (context, pause, child) {
-                    return Flexible(
-                      flex: 3,
-                      child: OverlayButton(
-                        image: pause ? Icons.play_arrow_outlined : Icons.pause,
-                        text: pause ? 'Continue' : 'Pause',
-                        onTap: Game.instance.changePause,
-                      ),
-                    );
-                  },
-                ),
+                if (game.gameInProgress.value)
+                  ValueListenableBuilder<bool>(
+                    valueListenable: Game.instance.pause,
+                    builder: (context, pause, child) {
+                      return Flexible(
+                        flex: 3,
+                        child: OverlayButton(
+                          image:
+                              pause ? Icons.play_arrow_outlined : Icons.pause,
+                          text: pause ? 'Continue' : 'Pause',
+                          onTap: Game.instance.changePause,
+                        ),
+                      );
+                    },
+                  ),
                 Flexible(
                   flex: 4,
                   child: OverlayButton(

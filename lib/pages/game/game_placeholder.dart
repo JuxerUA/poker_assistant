@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:poker_assistant/pages/game/game_overlay/overlay_button.dart';
 import 'package:poker_assistant/res/res.dart';
 
 class GamePlaceholder extends StatelessWidget {
@@ -16,10 +17,16 @@ class GamePlaceholder extends StatelessWidget {
       radius: const Radius.circular(40),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        child: Container(
-          color: PokerColors.black,
-          child: const Center(
-            child: Text('Poker', style: PokerStyles.headerYellow),
+        child: Center(
+          child: SizedBox(
+            width: 200,
+            height: 200,
+            child: OverlayButton(
+              image: Icons.not_started_outlined,
+              text: 'START GAME',
+              onTap: game.startNewGame,
+              isVertical: true,
+            ),
           ),
         ),
       ),

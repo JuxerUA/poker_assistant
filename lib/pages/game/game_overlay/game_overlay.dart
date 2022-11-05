@@ -22,12 +22,24 @@ class GameOverlay extends StatelessWidget {
             padding: const EdgeInsets.all(24),
             child: Column(
               children: [
-                Flexible(
-                  flex: 3,
+                SizedBox(
+                  height: 100,
                   child: OverlayButton(
                     image: Icons.arrow_upward,
                     text: 'Go up!',
                     onTap: goUp,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: ValueListenableBuilder<String>(
+                    valueListenable: game.currentGameTimeString,
+                    builder: (context, currentTime, child) {
+                      return Text(
+                        currentTime,
+                        style: PokerStyles(FontSize.s24, PokerColors.orange),
+                      );
+                    },
                   ),
                 ),
                 Flexible(

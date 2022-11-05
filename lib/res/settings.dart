@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:poker_assistant/pages/game/view_modes/view_modes.dart';
 import 'package:poker_assistant/res/res.dart';
@@ -34,6 +36,15 @@ class Game {
   late ValueNotifier<bool> pause = ValueNotifier(false);
   late ValueNotifier<bool> showGameOverlay = ValueNotifier(false);
   late ValueNotifier<bool> gameInProgress = ValueNotifier(false);
+  late ValueNotifier<String> currentGameTimeString =
+      ValueNotifier('Not started');
+
+  late Timer? timer = Timer.periodic(
+    const Duration(seconds: 1),
+    _onTimerCallback,
+  );
+
+  DateTime startGameTime = DateTime.now();
 
   bool withBlinds = true;
   int littleBlind = 0;
@@ -99,4 +110,11 @@ class Game {
   }
 
   void updateRates() {}
+
+  void _onTimerCallback(Timer timer) {
+    final duration = startGameTime.difference(DateTime.now());
+    final sDuration =
+        '${duration.inHours}:${duration.inMinutes.remainder(60)}:${duration.inSeconds.remainder(60)}';
+    currentGameTimeString.value = sDuration;
+  }
 }

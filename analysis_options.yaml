@@ -266,7 +266,6 @@ dart_code_metrics:
     - avoid-global-state
     # - prefer-moving-to-variable
     - prefer-immediate-return
-    - avoid-non-ascii-symbols
     #    - avoid-dynamic
     #    - avoid-ignoring-return-values
     #    - avoid-late-keyword
